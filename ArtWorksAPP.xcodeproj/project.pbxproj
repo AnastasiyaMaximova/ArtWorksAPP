@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		64187AC72D1337A00022E756 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64187AC62D1337A00022E756 /* AppDelegate.swift */; };
 		64187AC92D1337A00022E756 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64187AC82D1337A00022E756 /* SceneDelegate.swift */; };
-		64187ACB2D1337A00022E756 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64187ACA2D1337A00022E756 /* ViewController.swift */; };
 		64187ACE2D1337A00022E756 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64187ACC2D1337A00022E756 /* Main.storyboard */; };
 		64187AD02D1337A10022E756 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64187ACF2D1337A10022E756 /* Assets.xcassets */; };
 		64187AD32D1337A10022E756 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64187AD12D1337A10022E756 /* LaunchScreen.storyboard */; };
+		64187AE12D1339F20022E756 /* ArtWorksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64187AE02D1339F20022E756 /* ArtWorksTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		64187AC32D1337A00022E756 /* ArtWorksAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtWorksAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64187AC62D1337A00022E756 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64187AC82D1337A00022E756 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		64187ACA2D1337A00022E756 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		64187ACD2D1337A00022E756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64187ACF2D1337A10022E756 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64187AD22D1337A10022E756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64187AD42D1337A10022E756 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64187AE02D1339F20022E756 /* ArtWorksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtWorksTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +56,55 @@
 		64187AC52D1337A00022E756 /* ArtWorksAPP */ = {
 			isa = PBXGroup;
 			children = (
-				64187AC62D1337A00022E756 /* AppDelegate.swift */,
-				64187AC82D1337A00022E756 /* SceneDelegate.swift */,
-				64187ACA2D1337A00022E756 /* ViewController.swift */,
-				64187ACC2D1337A00022E756 /* Main.storyboard */,
+				64187ADE2D1338550022E756 /* Models */,
+				64187ADF2D1338630022E756 /* Servises */,
+				64187ADB2D1337F50022E756 /* ViewControllers */,
+				64187ADC2D1338110022E756 /* StorryBoards */,
+				64187ADA2D1337E70022E756 /* App */,
 				64187ACF2D1337A10022E756 /* Assets.xcassets */,
-				64187AD12D1337A10022E756 /* LaunchScreen.storyboard */,
-				64187AD42D1337A10022E756 /* Info.plist */,
 			);
 			path = ArtWorksAPP;
+			sourceTree = "<group>";
+		};
+		64187ADA2D1337E70022E756 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				64187AC62D1337A00022E756 /* AppDelegate.swift */,
+				64187AC82D1337A00022E756 /* SceneDelegate.swift */,
+				64187AD42D1337A10022E756 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		64187ADB2D1337F50022E756 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				64187AE02D1339F20022E756 /* ArtWorksTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		64187ADC2D1338110022E756 /* StorryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				64187ACC2D1337A00022E756 /* Main.storyboard */,
+				64187AD12D1337A10022E756 /* LaunchScreen.storyboard */,
+			);
+			path = StorryBoards;
+			sourceTree = "<group>";
+		};
+		64187ADE2D1338550022E756 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		64187ADF2D1338630022E756 /* Servises */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Servises;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +178,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64187ACB2D1337A00022E756 /* ViewController.swift in Sources */,
 				64187AC72D1337A00022E756 /* AppDelegate.swift in Sources */,
+				64187AE12D1339F20022E756 /* ArtWorksTableViewController.swift in Sources */,
 				64187AC92D1337A00022E756 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,12 +328,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ArtWorksAPP/Info.plist;
+				INFOPLIST_FILE = ArtWorksAPP/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,9 +341,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-.ArtWorksAPP";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -315,12 +358,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ArtWorksAPP/Info.plist;
+				INFOPLIST_FILE = ArtWorksAPP/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,9 +371,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-.ArtWorksAPP";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
