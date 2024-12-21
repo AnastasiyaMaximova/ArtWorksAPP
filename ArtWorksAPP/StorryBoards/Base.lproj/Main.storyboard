@@ -7,22 +7,25 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Art works-->
+        <!--Art with cats-->
         <scene sceneID="WzA-55-kTO">
             <objects>
-                <tableViewController id="dtW-PH-ka0" sceneMemberID="viewController">
+                <tableViewController id="dtW-PH-ka0" customClass="ArtDepartmentsTableViewController" customModule="ArtWorksAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eEY-gJ-YEO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="artCell" id="wOT-41-1S6">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="departmentCell" id="wOT-41-1S6">
                                 <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wOT-41-1S6" id="VPS-6o-mtX">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="p1z-a8-bX3" kind="show" id="f9N-mr-l2Y"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -30,11 +33,40 @@
                             <outlet property="delegate" destination="dtW-PH-ka0" id="kUS-os-XLr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Art works" id="UEB-Up-55G"/>
+                    <navigationItem key="navigationItem" title="Art with cats" id="UEB-Up-55G"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRH-5R-hpG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-370" y="-88"/>
+        </scene>
+        <!--Art With Cats List Controller-->
+        <scene sceneID="PWa-Ha-jpk">
+            <objects>
+                <tableViewController id="p1z-a8-bX3" customClass="ArtWithCatsListController" customModule="ArtWorksAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="OEc-ux-pO3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="artWithCat" id="JGS-SA-fVF">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JGS-SA-fVF" id="1Xe-lM-4UZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="p1z-a8-bX3" id="SAH-fo-sUK"/>
+                            <outlet property="delegate" destination="p1z-a8-bX3" id="28s-lS-Ry9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="t5z-bH-ZHV"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="puA-xE-mqJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="399" y="-88"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ocv-ge-6EK">
