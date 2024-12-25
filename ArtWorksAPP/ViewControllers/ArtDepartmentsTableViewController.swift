@@ -34,12 +34,9 @@ extension ArtDepartmentsTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "departmentCell") else {
             return UITableViewCell()
         }
-        
         let department = artDepartments[indexPath.row]
-        
         var content = cell.defaultContentConfiguration()
-        content.text = department.displayName
-        content.secondaryText = String(department.departmentId)
+        content.text = "\(department.departmentId). \(department.displayName)"
         cell.contentConfiguration = content
         return cell
     }
@@ -51,7 +48,6 @@ extension ArtDepartmentsTableViewController {
         networkManager.fetchDepartments { [weak self] departments in
             guard let self else {return}
             artDepartments = departments
-            print(artDepartments)
             tableView.reloadData()
         }
     }

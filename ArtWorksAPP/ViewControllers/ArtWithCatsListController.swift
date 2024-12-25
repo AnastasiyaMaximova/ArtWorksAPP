@@ -35,13 +35,23 @@ extension ArtWithCatsListController {
         }
         
         let art = arts[indexPath.row]
-        let image = try? Data(contentsOf: art.primaryImageSmall)
         
         var content = cell.defaultContentConfiguration()
         content.text = art.title
         content.secondaryText = art.artistDisplayName
-        content.image = UIImage(data: image!)
         cell.contentConfiguration = content
+        
+        networkManager.fetchImage(from: art.primaryImageSmall) { result in
+            switch result {
+            case .success(let imageData):
+                content.image = UIImage(data: imageData)
+                cell.contentConfiguration = content
+            case .failure(let error):
+                
+                //загрузить дефолтную картинку
+                print(error)
+            }
+        }
         return cell
     }
 }
