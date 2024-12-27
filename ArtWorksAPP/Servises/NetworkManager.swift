@@ -29,86 +29,43 @@ final class NetworkManager {
         }
     }
     
-    
-    
-    
-    func fetchDepartments (completion: @escaping ([Department]) -> Void) {
-        URLSession.shared.dataTask(with: Link.artDepartments.url) { data, _, error in
+    func fetch<T:Decodable>(_ type: T.Type, from url: URL, completion: @escaping (Result<T, NetworkError>)-> Void){
+        URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data else {
-                print(error?.localizedDescription ?? "Not error description")
+                print(error ?? "No error description")
                 return
             }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do {
-                let departments = try decoder.decode(Departments.self, from: data)
-                DispatchQueue.main.async {
-                    completion(departments.departments)
+            do{
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let dataModel = try decoder.decode(T.self, from: data)
+                DispatchQueue.main.sync {
+                    completion(.success(dataModel))
                 }
             } catch {
-                print(error.localizedDescription)
+                completion(.failure(.decodingError))
             }
-        } .resume()
-    }
-    
-    func fetchArtWithCats (completion: @escaping ([Int]) -> Void) {
-        URLSession.shared.dataTask(with: Link.artWithCats.url){ data, _, error in
-            guard let data else {
-                print(error?.localizedDescription ?? "Not error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do {
-                let artWithCats = try decoder.decode(ArtsWithCats.self, from: data)
-                DispatchQueue.main.async {
-                    completion(artWithCats.objectIDs)
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        } .resume()
-    }
-    
-    func fetchArt(completion: @escaping (Art) -> Void) {
-        URLSession.shared.dataTask(with: Link.art.url){ data, _, error in
-            guard let data else {
-                print(error?.localizedDescription ?? "Not error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do {
-                let art = try decoder.decode(Art.self, from: data)
-                DispatchQueue.main.async {
-                    completion(art.self)
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        } .resume()
+        }.resume()
     }
 }
-
-//MARK: - Link
-extension NetworkManager {
-    enum Link {
-        case artDepartments
-        case artWithCats
-        case art
+    
+enum Link {
+    case artDepartments
+    case artWithCats(Int)
+    case art(Int)
+    case fotoOfCat
         
-        var url: URL {
-            switch self {
-            case .artDepartments:
-                return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/departments")!
-            case .artWithCats:
-                return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=11&hasImages=true&q=cat")!
-            case .art:
-                return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/objects/435852")!
-            }
+    var url: URL {
+        switch self {
+        case .artDepartments:
+            return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/departments")!
+        case .artWithCats(let departmentId):
+            return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=\(departmentId)&hasImages=true&q=cat")!
+        case .art(let objectID):
+            return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/objects/\(objectID)")!
+        case .fotoOfCat:
+            return URL(string: "https://images.metmuseum.org/CRDImages/eg/web-large/45.4.6_EGDP014408.jpg")!
         }
     }
 }
+
