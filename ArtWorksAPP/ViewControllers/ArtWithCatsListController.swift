@@ -65,13 +65,17 @@ extension ArtWithCatsListController {
         cell.contentConfiguration = content
         cell.selectionStyle = .none
         
-        networkManager.fetchImage(from: art.primaryImageSmall) {[weak self] result in
-            guard let self else {return}
+        networkManager.fetchImage(from: art.primaryImageSmall) {[weak self, weak cell] result in
+            guard let self = self, let cell = cell else {return}
             switch result {
             case .success(let imageData):
-                content.image = UIImage(data: imageData)
-                cell.contentConfiguration = content
-                activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    if self.tableView.indexPath(for: cell) == indexPath {
+                        content.image = UIImage(data: imageData)
+                        cell.contentConfiguration = content
+                    }
+                    self.activityIndicator.stopAnimating()
+                }
             case .failure(let error):
                 print(error)
             }
@@ -97,17 +101,29 @@ extension ArtWithCatsListController {
     }
     
     private func fetchArt() {
+        let dispatchGroup = DispatchGroup()
+        var fetchedArts: [Art] = []
+        
         for objectID in  artsWithCats {
+            dispatchGroup.enter()
             networkManager.fetch(Art.self, from: Link.art(objectID).url) { [weak self] result in
+                defer {dispatchGroup.leave()}
                 guard let self else {return}
                 switch result{
                 case .success(let art):
-                    arts.append(art.self)
+                    fetchedArts.append(art.self)
                     tableView.reloadData()
                 case .failure(let error):
                     print(error)
                 }
             }
+        }
+        
+        dispatchGroup.notify(queue: .main) {[weak self] in
+            guard let self else {return}
+            arts = fetchedArts.filter { !$0.title.isEmpty}
+            tableView.reloadData()
+            activityIndicator.stopAnimating()
         }
     }
     

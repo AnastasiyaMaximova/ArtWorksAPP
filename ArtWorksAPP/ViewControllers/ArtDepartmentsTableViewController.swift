@@ -14,6 +14,7 @@ final class ArtDepartmentsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = .black
         fetchDepartments()
         networkManager.fetchImage(from: Link.fotoOfCat.url) {[weak self] result in
             guard let self else {return}
