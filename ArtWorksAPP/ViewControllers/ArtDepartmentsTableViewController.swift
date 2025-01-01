@@ -48,7 +48,6 @@ extension ArtDepartmentsTableViewController {
         let department = artDepartments[indexPath.row]
         var content = cell.defaultContentConfiguration()
         content.text = department.displayName
-        //content.textProperties.color = .black
         content.textProperties.font = .boldSystemFont(ofSize: 18)
         cell.contentConfiguration = content
         return cell
@@ -58,17 +57,36 @@ extension ArtDepartmentsTableViewController {
 
 //MARK: - Networking
 extension ArtDepartmentsTableViewController {
+    
     private func fetchDepartments() {
-        networkManager.fetch(Departments.self, from: Link.artDepartments.url ) {[unowned self] result in
+        networkManager.fetchDepartments(from: Link.artDepartments.url, completion: {[unowned self] result in
             switch result {
             case .success(let departments):
                 artDepartments = departments.departments
                 tableView.reloadData()
             case .failure(let error):
-                print(error)
+                print(error.localizedDescription)
             }
         }
+        )
     }
+        
+    
+    
+    
+    
+    
+//    private func fetchDepartments() {
+//        networkManager.fetch(Departments.self, from: Link.artDepartments.url ) {[unowned self] result in
+//            switch result {
+//            case .success(let departments):
+//                artDepartments = departments.departments
+//                tableView.reloadData()
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
 }
 
 

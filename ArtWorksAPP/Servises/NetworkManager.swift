@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 enum NetworkError: Error {
     case invalidURL
@@ -46,6 +47,20 @@ final class NetworkManager {
                 completion(.failure(.decodingError))
             }
         }.resume()
+    }
+    
+    func fetchDepartments (from url: URL, completion: @escaping (Result<Departments, AFError>)-> Void){
+        AF.request(url)
+            .validate()
+            .responseJSON { dataresponse in
+                switch dataresponse.result {
+                case .success(let value):
+                    let departments = Departments.getDepartments(value: value)
+                    completion(.success(departments))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
     }
 }
     

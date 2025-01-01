@@ -12,6 +12,16 @@ import Foundation
 struct Department: Decodable {
     let departmentId: Int
     let displayName: String
+    
+    init(departmentID: Int, displayName: String) {
+        self.departmentId = departmentID
+        self.displayName = displayName
+    }
+    
+    init(value: [String: Any]){
+        departmentId = value["departmentId"] as? Int ?? 0
+        displayName = value["displayName"] as? String ?? ""
+    }
 }
 
 struct Art: Decodable {
@@ -27,5 +37,29 @@ struct ArtsWithCats: Decodable {
 }
 
 struct Departments: Decodable {
-    let departments: [Department]
+    var departments: [Department]
+    
+    
+    init (departments: [Department]){
+        self.departments = departments
+    }
+    
+    init(value: [String: Any]) {
+        departments = value ["departments"] as? [Department] ?? []
+    }
+    
+    static func getDepartments(value: Any) -> Departments {
+        guard let data = value as? [String: [[String: Any]]] else {return Departments(departments: [Department(departmentID: 0, displayName: "thjt")])
+        }
+        var departments = Departments(departments: [])
+        for value in data {
+            value.value.forEach { value in
+                let department = Department(value: value)
+                departments.departments.append(department)
+            }
+        }
+        return departments
+    }
 }
+
+
