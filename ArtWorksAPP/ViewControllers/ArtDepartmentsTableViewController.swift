@@ -70,23 +70,6 @@ extension ArtDepartmentsTableViewController {
         }
         )
     }
-        
-    
-    
-    
-    
-    
-//    private func fetchDepartments() {
-//        networkManager.fetch(Departments.self, from: Link.artDepartments.url ) {[unowned self] result in
-//            switch result {
-//            case .success(let departments):
-//                artDepartments = departments.departments
-//                tableView.reloadData()
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
 }
 
 

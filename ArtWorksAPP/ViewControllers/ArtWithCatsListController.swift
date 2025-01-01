@@ -86,14 +86,13 @@ extension ArtWithCatsListController {
 //MARK: - Networking
 extension ArtWithCatsListController {
     private func fetchArtsWithCats(){
-        networkManager.fetch(ArtsWithCats.self, from: Link.artWithCats(department.departmentId).url) {[weak self] result in
+        networkManager.fetchArtsWithCats(from: Link.artWithCats(department.departmentId).url) {[weak self] result in
             guard let self else {return}
             switch result{
             case .success(let artWithCats):
                 artsWithCats = artWithCats.objectIDs
                 tableView.reloadData()
                 fetchArt()
-                filterData()
             case .failure(let error):
                 print(error)
             }
@@ -106,7 +105,7 @@ extension ArtWithCatsListController {
         
         for objectID in  artsWithCats {
             dispatchGroup.enter()
-            networkManager.fetch(Art.self, from: Link.art(objectID).url) { [weak self] result in
+            networkManager.fetchArt(from: Link.art(objectID).url) {[weak self] result in
                 defer {dispatchGroup.leave()}
                 guard let self else {return}
                 switch result{
@@ -122,14 +121,10 @@ extension ArtWithCatsListController {
         dispatchGroup.notify(queue: .main) {[weak self] in
             guard let self else {return}
             arts = fetchedArts.filter { !$0.title.isEmpty}
+            arts = fetchedArts.filter {!$0.primaryImageSmall.isEmpty}
             tableView.reloadData()
             activityIndicator.stopAnimating()
         }
-    }
-    
-    private func filterData() {
-        arts = arts.filter{$0.title != ""}
-        tableView.reloadData()
     }
 }
 

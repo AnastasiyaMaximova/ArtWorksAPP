@@ -18,7 +18,7 @@ final class NetworkManager {
     static let shared = NetworkManager()
     private init () {}
     
-    func fetchImage(from url: URL, completion: @escaping (Result<Data, AFError>)-> Void) {
+    func fetchImage(from url: String, completion: @escaping (Result<Data, AFError>)-> Void) {
         AF.request(url)
             .validate()
             .responseData { dataResponse in
@@ -31,38 +31,7 @@ final class NetworkManager {
             }
     }
     
-//    func fetchImage(from url: URL, completion: @escaping (Result<Data, NetworkError>)-> Void) {
-//        DispatchQueue.global().async {
-//            guard let imageData = try? Data(contentsOf: url) else {
-//                completion(.failure(.noData))
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                completion(.success(imageData))
-//            }
-//        }
-//    }
-    
-    func fetch<T:Decodable>(_ type: T.Type, from url: URL, completion: @escaping (Result<T, NetworkError>)-> Void){
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data else {
-                print(error ?? "No error description")
-                return
-            }
-            do{
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let dataModel = try decoder.decode(T.self, from: data)
-                DispatchQueue.main.sync {
-                    completion(.success(dataModel))
-                }
-            } catch {
-                completion(.failure(.decodingError))
-            }
-        }.resume()
-    }
-    
-    func fetchDepartments (from url: URL, completion: @escaping (Result<Departments, AFError>)-> Void){
+    func fetchDepartments(from url: String, completion: @escaping(Result<Departments, AFError>)-> Void){
         AF.request(url)
             .validate()
             .responseJSON { dataresponse in
@@ -70,6 +39,34 @@ final class NetworkManager {
                 case .success(let value):
                     let departments = Departments.getDepartments(value: value)
                     completion(.success(departments))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func fetchArt(from url: String, completion: @escaping(Result<Art,AFError>)-> Void) {
+        AF.request(url)
+            .validate()
+            .responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success(let value):
+                    let art = Art.getArt(value: value)
+                    completion(.success(art))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func fetchArtsWithCats(from url: String, completion: @escaping(Result<ArtsWithCats,AFError>)-> Void) {
+        AF.request(url)
+            .validate()
+            .responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success(let value):
+                    let artsWithCats = ArtsWithCats.getArtsWithCats(value: value)
+                    completion(.success(artsWithCats))
                 case .failure(let error):
                     completion(.failure(error))
                 }
@@ -83,16 +80,16 @@ enum Link {
     case art(Int)
     case fotoOfCat
         
-    var url: URL {
+    var url: String {
         switch self {
         case .artDepartments:
-            return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/departments")!
+            return "https://collectionapi.metmuseum.org/public/collection/v1/departments"
         case .artWithCats(let departmentId):
-            return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=\(departmentId)&hasImages=true&q=cat")!
+            return "https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=\(departmentId)&hasImages=true&q=cat"
         case .art(let objectID):
-            return URL(string: "https://collectionapi.metmuseum.org/public/collection/v1/objects/\(objectID)")!
+            return "https://collectionapi.metmuseum.org/public/collection/v1/objects/\(objectID)"
         case .fotoOfCat:
-            return URL(string: "https://images.metmuseum.org/CRDImages/eg/web-large/45.4.6_EGDP014408.jpg")!
+            return "https://images.metmuseum.org/CRDImages/eg/web-large/45.4.6_EGDP014408.jpg"
         }
     }
 }
