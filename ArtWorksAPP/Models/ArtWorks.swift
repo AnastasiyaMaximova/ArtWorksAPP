@@ -49,7 +49,7 @@ struct Departments: Decodable {
     }
     
     static func getDepartments(value: Any) -> Departments {
-        guard let data = value as? [String: [[String: Any]]] else {return Departments(departments: [Department(departmentID: 0, displayName: "thjt")])
+        guard let data = value as? [String: [[String: Any]]] else {return Departments(departments: [Department(departmentID: 0, displayName: "")])
         }
         var departments = Departments(departments: [])
         for value in data {
