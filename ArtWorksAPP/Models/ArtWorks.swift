@@ -9,7 +9,7 @@ import Foundation
 
 
 
-struct Department: Decodable {
+struct Department {
     let departmentId: Int
     let displayName: String
     
@@ -24,7 +24,7 @@ struct Department: Decodable {
     }
 }
 
-struct Art: Decodable {
+struct Art {
     let objectID: Int
     let department: String
     let title: String
@@ -57,7 +57,7 @@ struct Art: Decodable {
     }
 }
 
-struct ArtsWithCats: Decodable {
+struct ArtsWithCats {
     let objectIDs: [Int]
     
     init(objectIDs: [Int]) {
@@ -77,7 +77,7 @@ struct ArtsWithCats: Decodable {
     }
 }
 
-struct Departments: Decodable {
+struct Departments {
     var departments: [Department]
     
     init (departments: [Department]){
